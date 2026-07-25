@@ -15,6 +15,7 @@ module.exports = {
       notes: "Notes for Session 1",
       startDateTime: "2023-07-01T10:00:00Z",
       duration: 60,
+      themeId: "1",
     },
     {
       id: "2",
@@ -23,6 +24,7 @@ module.exports = {
       notes: "Notes for Session 2",
       startDateTime: "2023-07-01T11:00:00Z",
       duration: 90,
+      themeId: "2",
     } ,
     {
       id: "3",
@@ -31,7 +33,13 @@ module.exports = {
       notes: "Notes for Session 3",
       startDateTime: "2023-07-01T12:00:00Z",
       duration: 120,
+      themeId: "1",
     },
+  ],
+  themes: [
+    { id: "1", name: "Theme 1", color: "Red" },
+    { id: "2", name: "Theme 2", color: "Blue" },
+    { id: "3", name: "Theme 3", color: "Green" },
   ],
 
 };

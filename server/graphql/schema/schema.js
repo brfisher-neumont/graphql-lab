@@ -8,6 +8,7 @@ const {
 
 const customers = require("../../data/data").customers;
 const focusSessions = require("../../data/data").focusSessions;
+const themes = require("../../data/data").themes;
 
 const _ = require("lodash");
 
@@ -29,6 +30,16 @@ const FocusSessionType = new GraphQLObjectType({
     notes: { type: GraphQLString },
     startDateTime: { type: GraphQLString },
     duration: { type: GraphQLInt },
+    themeId: { type: GraphQLID },
+  }),
+});
+
+const ThemeType = new GraphQLObjectType({
+  name: "Theme",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    color: { type: GraphQLString },
   }),
 });
 
@@ -51,6 +62,13 @@ const RootQuery = new GraphQLObjectType({
         return _.find(focusSessions, { id: args.id });
       },
     },
+    theme: {
+      type: ThemeType,
+      args: { id: { type: GraphQLString } },
+      resolve(parent, args) {
+        return _.find(themes, { id: args.id });
+      },
+    }
   },
 });
 

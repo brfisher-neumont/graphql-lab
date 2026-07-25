@@ -49,4 +49,3 @@ What to check
 
 - `focusSessions` returns the sample focus session list defined in `server/data/data.js`.
 
-This is all fun, but we haven't described a relationship yet. We'll do that in our next lab!
