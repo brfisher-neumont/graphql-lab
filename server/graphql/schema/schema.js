@@ -4,6 +4,7 @@ const {
   GraphQLString,
   GraphQLID,
     GraphQLInt,
+    GraphQLList,
 } = require("graphql");
 
 const customers = require("../../data/data").customers;
@@ -18,6 +19,13 @@ const CustomerType = new GraphQLObjectType({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     photo: { type: GraphQLString },
+    focusSessions: {
+      type: new GraphQLList(FocusSessionType),
+      resolve(parent, args) {
+        return _.filter(focusSessions, { customerId: parent.id });
+      }
+    }
+
   }),
 });
 
@@ -30,7 +38,17 @@ const FocusSessionType = new GraphQLObjectType({
     notes: { type: GraphQLString },
     startDateTime: { type: GraphQLString },
     duration: { type: GraphQLInt },
-    themeId: { type: GraphQLID },
+    theme: { type: ThemeType,
+        resolve(parent, args) {
+            return _.find(themes, { id: parent.themeId });
+        }
+    },
+    
+    customer: { type: CustomerType,
+        resolve(parent, args) {
+            return _.find(customers, { id: parent.customerId });
+        }
+    }
   }),
 });
 
