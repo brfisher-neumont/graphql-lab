@@ -1,0 +1,11 @@
+{
+  "name": "graphql-project",
+  "version": "1.0.0",
+  "description": "A practice project for GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Brent",
+  "license": "ISC"
+}
