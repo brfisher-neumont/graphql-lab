@@ -6,7 +6,7 @@ Objective
 
 Steps
 
-1. Update `server/graphql/schema.js` to export `RootQuery` fields (example `user` and `users`):
+1. Update `server/graphql/schema.js` to export `RootQuery` fields (example `customer` and `customers`):
 
 ```js
 const { GraphQLObjectType, GraphQLList, GraphQLID } = require("graphql");
@@ -14,15 +14,15 @@ const { GraphQLObjectType, GraphQLList, GraphQLID } = require("graphql");
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: () => ({
-    user: {
-      type: UserType,
+    customer: {
+      type: CustomerType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return null;
       },
     },
-    users: {
-      type: new GraphQLList(UserType),
+    customers: {
+      type: new GraphQLList(CustomerType),
       resolve() {
         return [];
       },
@@ -37,7 +37,7 @@ const RootQuery = new GraphQLObjectType({
 
 ```graphql
 {
-  users {
+  customers {
     id
     name
   }
@@ -46,4 +46,4 @@ const RootQuery = new GraphQLObjectType({
 
 What to check
 
-- GraphiQL loads and you can execute the `users` query (returns empty list initially).
+- GraphiQL loads and you can execute the `customers` query (returns empty list initially).

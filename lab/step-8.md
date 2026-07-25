@@ -15,7 +15,7 @@ const PostType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
-    userId: { type: GraphQLID },
+    customerId: { type: GraphQLID },
   }),
 });
 ```
@@ -26,4 +26,4 @@ const PostType = new GraphQLObjectType({
 
 What to check
 
-- `posts` returns the sample posts and each post includes `userId` to later link to a `User`.
+- `posts` returns the sample posts and each post includes `customerId` to later link to a `Customer`.

@@ -59,6 +59,8 @@ app.listen(4000, () => {
 
 3. Configure `graphiql`, 'pronounced graphical'
 
+Add the following to app.js. Don't worry too much about the content of the schema, we'll get to that in [Step-4](step-4.md).
+
 ```javascript
 const express = require("express");
 const { createHandler } = require("graphql-http/lib/use/express");

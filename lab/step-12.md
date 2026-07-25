@@ -11,9 +11,9 @@ Steps
 ```js
 posts: {
   type: new GraphQLList(PostType),
-  args: { userId: { type: GraphQLID } },
+  args: { customerId: { type: GraphQLID } },
   resolve(parent, args) {
-    if (args.userId) return posts.filter(p => p.userId === args.userId);
+    if (args.customerId) return posts.filter(p => p.customerId === args.customerId);
     return posts;
   }
 }
@@ -31,7 +31,7 @@ posts: {
 }
 
 {
-  posts(userId: "1") {
+  posts(customerId: "1") {
     id
     title
   }
@@ -40,4 +40,4 @@ posts: {
 
 What to check
 
-- `posts` and filtered `posts(userId: ...)` return expected results.
+- `posts` and filtered `posts(customerId: ...)` return expected results.

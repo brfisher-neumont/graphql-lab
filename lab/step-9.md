@@ -2,16 +2,16 @@
 
 Objective
 
-- Link `User`, `Post`, and `Hobby` types so nested queries can resolve related data.
+- Link `Customer`, `Post`, and `Hobby` types so nested queries can resolve related data.
 
 Steps
 
-1. Add a `posts` field to `UserType` that returns a `GraphQLList(PostType)` and resolves using `posts.filter(p => p.userId === parent.id)`.
+1. Add a `posts` field to `CustomerType` that returns a `GraphQLList(PostType)` and resolves using `posts.filter(p => p.customerId === parent.id)`.
 
-2. Add an `author` field to `PostType` that resolves by finding the user with `id === parent.userId`.
+2. Add an `author` field to `PostType` that resolves by finding the customer with `id === parent.customerId`.
 
-3. Add a `hobbies` field to `UserType` that resolves by filtering the hobbies array by a `userId` field (or mapping via relations you define in sample data).
+3. Add a `hobbies` field to `CustomerType` that resolves by filtering the hobbies array by a `customerId` field (or mapping via relations you define in sample data).
 
 What to check
 
-- Nested queries like `user { posts { title } }` return expected nested data.
+- Nested queries like `customer { posts { title } }` return expected nested data.

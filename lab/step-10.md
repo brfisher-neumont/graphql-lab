@@ -1,21 +1,21 @@
-# Step 10 — Showing Users Relationships (11 min)
+# Step 10 — Showing Customers Relationships (11 min)
 
 Objective
 
-- Implement resolvers so `User` returns related `posts` and `hobbies` when requested.
+- Implement resolvers so `Customer` returns related `posts` and `hobbies` when requested.
 
 Steps
 
-1. In `UserType` define:
+1. In `CustomerType` define:
 
 ```js
 posts: {
   type: new GraphQLList(PostType),
-  resolve(parent) { return posts.filter(p => p.userId === parent.id); }
+  resolve(parent) { return posts.filter(p => p.customerId === parent.id); }
 },
 hobbies: {
   type: new GraphQLList(HobbyType),
-  resolve(parent) { return hobbies.filter(h => h.userId === parent.id); }
+  resolve(parent) { return hobbies.filter(h => h.customerId === parent.id); }
 }
 ```
 
@@ -25,7 +25,7 @@ hobbies: {
 
 ```graphql
 {
-  user(id: "1") {
+  customer(id: "1") {
     id
     name
     posts {
@@ -42,4 +42,4 @@ hobbies: {
 
 What to check
 
-- The user query returns nested `posts` and `hobbies` arrays.
+- The customer query returns nested `posts` and `hobbies` arrays.

@@ -27,13 +27,13 @@ This lab walks through building a small GraphQL API with Express in 13 focused s
 	- Objective: Create a `Post` type with fields (id, title, content, author) and add to schema.
 
 9. Adding Relationships Between Types — 5 min
-	- Objective: Link types (e.g., `User` ↔ `Post`, `User` ↔ `Hobby`) and expose nested fields.
+	- Objective: Link types (e.g., `Customer` ↔ `Post`, `Customer` ↔ `Hobby`) and expose nested fields.
 
-10. Showing Users Relationships — 11 min
-	 - Objective: Implement user resolvers that return related posts and hobbies.
+10. Showing Customers Relationships — 11 min
+	 - Objective: Implement customer resolvers that return related posts and hobbies.
 
-11. User Type Relationship to Hobby — 6 min
-	 - Objective: Demonstrate resolving a user's hobbies and explain resolver chaining.
+11. Customer Type Relationship to Hobby — 6 min
+	 - Objective: Demonstrate resolving a customer's hobbies and explain resolver chaining.
 
 12. Posts Query — 8 min
 	 - Objective: Add a top-level `posts` query, support filtering and return sample data.
