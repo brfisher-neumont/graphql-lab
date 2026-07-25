@@ -37,12 +37,7 @@ const CustomerType = new GraphQLObjectType({
   }),
 });
 
-const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
-  fields: () => ({}),
-});
 
-module.exports = new GraphQLSchema({ query: RootQuery });
 ```
 
-In the next module, we'll check the GraphiQL interface to verify the new type!
+In the next module, we'll export the data and check the GraphiQL interface to verify the new type!
