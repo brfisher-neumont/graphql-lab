@@ -2,13 +2,16 @@
   "name": "graphql-project",
   "version": "1.0.0",
   "description": "A practice project for GraphQL",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "test"
   },
   "author": "Brent",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "graphql": "^16.14.2",
+    "graphql-http": "^1.22.4",
+    "ruru": "^2.0.1"
   }
 }
