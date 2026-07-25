@@ -50,3 +50,5 @@ const _ = require("lodash");
 What to check
 
 - `customer(id: "1")` returns Alice and `customer(id: "2")` returns Bob.
+
+4. Homework, add some other type, and see how it works!
