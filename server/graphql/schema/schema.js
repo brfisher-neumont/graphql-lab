@@ -5,6 +5,10 @@ const {
   GraphQLID,
 } = require("graphql");
 
+const customers = require("../../data/data").customers;
+
+const _ = require("lodash");
+
 const CustomerType = new GraphQLObjectType({
   name: "Customer",
   fields: () => ({
@@ -22,13 +26,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
 
       resolve(parent, args) {
-        // Here you would typically fetch data from a database or another source
-        // For demonstration purposes, we'll return a static customer object
-        return {
-          id: args.id,
-          name: "John Doe",
-          photo: "photo.jpg",
-        };
+        return _.find(customers, { id: args.id });
       },
     },
   },
