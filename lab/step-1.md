@@ -2,7 +2,9 @@
 
 Objective
 
-- Initialize a Node project and create the folder structure for the lab.
+- Initialize a Node project and install expressjs
+
+**Note:** Expressjs is a robust framework for web applications that is lightweight. See more at [expressjs.com](expressjs.com)
 
 Prerequisites
 
@@ -14,28 +16,35 @@ Steps
 
 ```bash
 npm init -y
-mkdir -p lab server src
+mkdir server
+cd server
+npm install express
 ```
 
-2. Create an entry file for the server at `server/index.js` and a folder for GraphQL code `server/graphql`.
+You should see it install 
+```sh
+added 67 packages, and audited 68 packages in 3s
 
-3. Add a start script in `package.json`:
+26 packages are looking for funding
+  run `npm fund` for details
 
+found 0 vulnerabilities
+```
+
+and you can see express was installed as a dependency in `package.json`
 ```json
-"scripts": {
-  "start": "node server/index.js",
-  "dev": "nodemon server/index.js"
+{
+  "name": "graphql-project",
+  "version": "1.0.0",
+  "description": "A practice project for GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Brent",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
 ```
-
-4. Commit your initial setup (optional):
-
-```bash
-git init
-git add .
-git commit -m "chore: initial lab scaffolding"
-```
-
-What to check
-
-- `package.json` exists and `server/index.js` file can be created.
