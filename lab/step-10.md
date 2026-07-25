@@ -105,3 +105,6 @@ focusSessions: {
 What to check
 
 - The customer query returns a nested `focusSessions` array, and each focus session returns its related `theme`.
+- Check the data integrity, to be sure it does what it's supposed to do with relationships.
+
+Bonus: Add a query for all themes.

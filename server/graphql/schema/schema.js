@@ -65,6 +65,12 @@ const ThemeType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    themes: {
+      type: new GraphQLList(ThemeType),
+      resolve(parent, args) {
+        return themes;
+      }
+    },
     customer: {
       type: CustomerType,
       args: { id: { type: GraphQLString } },
