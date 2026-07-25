@@ -2,16 +2,14 @@
 
 Objective
 
-- Link `Customer`, `Post`, and `Hobby` types so nested queries can resolve related data.
+- Understand the conceptual relationships between `Customer`, `FocusSession`, and `Theme` to start mapping entities
 
-Steps
+So far, we've created 3 entities, but so far, they don't have a relationship. We need to add the relationships.
 
-1. Add a `posts` field to `CustomerType` that returns a `GraphQLList(PostType)` and resolves using `posts.filter(p => p.customerId === parent.id)`.
+The **Customer** may have many **FocusSessions**. the same **Theme** may be used over multiple **FocusSessions**. There are no apparent relationships between **Themes** and **Customers**.
 
-2. Add an `author` field to `PostType` that resolves by finding the customer with `id === parent.customerId`.
+![alt text](image-6.png)
 
-3. Add a `hobbies` field to `CustomerType` that resolves by filtering the hobbies array by a `customerId` field (or mapping via relations you define in sample data).
+There are more formal entity diagrams that could be used here, but I'm using a simplified, if not exact cartoon to represent that one customer has zero or more (many) focus sessions and that one Theme has zero or more (many) focus sessions.
 
-What to check
-
-- Nested queries like `customer { posts { title } }` return expected nested data.
+In the next step, we'll model it in our schema and practice data.
