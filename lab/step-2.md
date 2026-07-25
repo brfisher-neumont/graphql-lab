@@ -1,4 +1,4 @@
-# Step 2 — Importing Express and GraphQL (5 min)
+# Step 2 — Importing Express (5 min)
 
 Objective
 
@@ -6,46 +6,23 @@ Objective
 
 Steps
 
-
-
-
-1. Create an entry file `server/index.js` with a minimal Express server:
-
-```js
-const express = require('express');
-const app = express();
-
-app.get('/', (req, res) => res.send('GraphQL lab server'));
-
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
-```
-
-
-
-2. Open `server/index.js` and add the following skeleton:
+1. Create an entry file `server/app.js` with a minimal Express server:
 
 ```js
 const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./graphql/schema"); // create in later steps
 
 const app = express();
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    graphiql: true,
-  }),
-);
-
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(4000, () => {
+  console.log("Server is listening on port 4000");
+});
 ```
 
-2. Save the file. The server will not run yet until dependencies and the `schema` file exist — that's covered in later steps.
+2. Run the new app in your console
 
-What to check
+```sh
+$ node app
+Server is listening on port 4000
+```
 
-- `server/index.js` contains the `express` and `express-graphql` setup and references `./graphql/schema`.
+
