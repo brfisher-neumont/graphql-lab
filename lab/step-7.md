@@ -1,37 +1,52 @@
-# Step 7 — Adding a Hobby Type and RootQuery (8 min)
+# Step 7 — Adding a FocusSession Type and RootQuery (8 min)
 
 Objective
 
-- Create a `Hobby` type and add hobby queries to the schema.
+- Create a `FocusSession` type and add focus session queries to the schema.
 
 Steps
 
-1. In `server/graphql/schema.js` add a `HobbyType`:
+1. In `server/graphql/schema.js` add `GraphQLInt` to the destructured `require("graphql")` import, then add a `FocusSessionType`:
 
 ```js
-const HobbyType = new GraphQLObjectType({
-  name: "Hobby",
+const FocusSessionType = new GraphQLObjectType({
+  name: "FocusSession",
   fields: () => ({
     id: { type: GraphQLID },
-    title: { type: GraphQLString },
+    name: { type: GraphQLString },
     description: { type: GraphQLString },
+    notes: { type: GraphQLString },
+    startDateTime: { type: GraphQLString },
+    duration: { type: GraphQLInt },
   }),
 });
 ```
 
-2. Add `hobbies` to `RootQuery` and return `require('../data/sample').hobbies`.
+**Note:** You should notice that `GraphQLInt` needs to be imported. 
 
-3. Test in GraphiQL:
+`startDateTime` is represented as an ISO 8601 string (e.g. `"2026-07-25T09:00:00Z"`) since GraphQL has no built-in date/time scalar. `duration` is the session length in minutes, so it's a `GraphQLInt`.
+
+2. Add `focusSessions` to `RootQuery` and return `require('../data/sample').focusSessions`.
+
+3. Add focusSessions data to the sample data (left to your imagination)
+
+4. Test in GraphiQL:
 
 ```graphql
 {
-  hobbies {
+  focusSessions {
     id
-    title
+    name
+    startDateTime
+    duration
   }
 }
 ```
 
+![Focus Sessions](image-5.png)
+
 What to check
 
-- `hobbies` returns the sample hobby list defined in `server/data/sample.js`.
+- `focusSessions` returns the sample focus session list defined in `server/data/data.js`.
+
+This is all fun, but we haven't described a relationship yet. We'll do that in our next lab!
