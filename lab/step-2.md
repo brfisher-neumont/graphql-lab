@@ -6,7 +6,24 @@ Objective
 
 Steps
 
-1. Open `server/index.js` and add the following skeleton:
+
+
+
+1. Create an entry file `server/index.js` with a minimal Express server:
+
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => res.send('GraphQL lab server'));
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+```
+
+
+
+2. Open `server/index.js` and add the following skeleton:
 
 ```js
 const express = require("express");
