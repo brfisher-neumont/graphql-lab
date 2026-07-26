@@ -21,11 +21,36 @@ const CustomerType = new GraphQLObjectType({
     photo: { type: GraphQLString },
     focusSessions: {
       type: new GraphQLList(FocusSessionType),
+      
+      args: {
+        pageSize: { type: GraphQLInt },
+        pageNumber: { type: GraphQLInt }
+      },
       resolve(parent, args) {
-        return _.filter(focusSessions, { customerId: parent.id });
+        let filteredSessions = _.filter(focusSessions, {
+            customerId: parent.id
+        });
+        filteredSessions = _.orderBy(filteredSessions, ["startDateTime"], ["desc"]);
+        if (args.pageSize != null && args.pageNumber != null) {
+          const startIndex = args.pageNumber * args.pageSize;
+          const endIndex = startIndex + args.pageSize;
+          return _.slice(filteredSessions, startIndex, endIndex);          
+        } else {
+            return filteredSessions;
+        }
+      }
+    },
+    lastTwoFocusSessions: {
+      type: new GraphQLList(FocusSessionType),
+      resolve(parent, args) {
+        const filteredSessions = _.filter(focusSessions, {
+            customerId: parent.id
+        });
+        const sortedSessions = _.orderBy(filteredSessions, ["startDateTime"], ["desc"]);
+        return _.take(sortedSessions, 2);
       }
     }
-
+1
   }),
 });
 

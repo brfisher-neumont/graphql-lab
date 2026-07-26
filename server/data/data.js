@@ -9,16 +9,6 @@ module.exports = {
   ],
   focusSessions: [
     {
-      id: "1",
-      name: "Session 1",
-      description: "Description for Session 1",
-      notes: "Notes for Session 1",
-      startDateTime: "2023-07-01T10:00:00Z",
-      duration: 60,
-      themeId: "1",
-      customerId: "1",
-    },
-    {
       id: "2",
       name: "Session 2",
       description: "Description for Session 2",
@@ -35,6 +25,16 @@ module.exports = {
       notes: "Notes for Session 3",
       startDateTime: "2023-07-01T12:00:00Z",
       duration: 120,
+      themeId: "1",
+      customerId: "1",
+    },
+    {
+      id: "1",
+      name: "Session 1",
+      description: "Description for Session 1",
+      notes: "Notes for Session 1",
+      startDateTime: "2023-07-01T10:00:00Z",
+      duration: 60,
       themeId: "1",
       customerId: "1",
     },
