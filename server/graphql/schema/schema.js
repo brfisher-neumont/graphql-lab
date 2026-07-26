@@ -17,7 +17,7 @@ const _ = require("lodash");
 const { PutCommand } = require("@aws-sdk/lib-dynamodb");
 const { v4: uuidv4 } = require("uuid");
 const docClient = require("../../db/dynamo");
-const { CUSTOMERS_TABLE, FOCUS_SESSIONS_TABLE } = require("../../db/tableNames");
+const { CUSTOMERS_TABLE, FOCUS_SESSIONS_TABLE, THEMES_TABLE } = require("../../db/tableNames");
 
 
 
@@ -197,13 +197,13 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         color: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const theme = {
-          id: String(themes.length + 1),
+          id: uuidv4(),
           name: args.name,
           color: args.color,
         };
-        themes.push(theme);
+        await docClient.send(new PutCommand({ TableName: THEMES_TABLE, Item: theme }));
         return theme;
       },
     },
