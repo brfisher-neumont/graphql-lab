@@ -26,7 +26,7 @@ const ThemeType = new GraphQLObjectType({
 themeId: { type: GraphQLID },
 ```
 
-3. Add a `themes` field to `RootQuery` that returns a `GraphQLList(ThemeType)` and connects to `server/data/sample.js`'s `themes` array.
+3. Add a `themes` field to `RootQuery` that returns a `GraphQLList(ThemeType)` and connects to `server/data/data.js`'s `themes` array.
 
 **Note:** You'll need `GraphQLList` in the destructured `require("graphql")` import if it isn't there yet.
 

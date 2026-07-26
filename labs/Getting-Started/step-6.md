@@ -10,7 +10,7 @@ Now that the schema shape is settled (we know a `Customer` has an `id`, `name`, 
 
 Steps
 
-1. Create a file `server/data/sample.js` with sample arrays:
+1. Create a file `server/data/data.js` with sample arrays:
 
 ```js
 module.exports = {

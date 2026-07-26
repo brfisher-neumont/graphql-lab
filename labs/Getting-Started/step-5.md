@@ -47,7 +47,7 @@ Each field also has a **resolve** function, or **resolver**. GraphQL doesn't kno
 - `context` — shared data available to every resolver in a request (auth info, a database connection, etc.).
 - `info` — metadata about the query itself (rarely needed for basic resolvers).
 
-Here, the `customer` field's resolver ignores `parent`/`context`/`info` and just returns a static object using `args.id`. Later, you'll swap that static return for a real lookup against `server/data/sample.js`.
+Here, the `customer` field's resolver ignores `parent`/`context`/`info` and just returns a static object using `args.id`. Later, you'll swap that static return for a real lookup against `server/data/data.js`.
 
 2. Add this schema back to app.js
 

@@ -14,9 +14,9 @@ const {
   GraphQLSchema,
   GraphQLString,
   GraphQLID,
-    GraphQLInt,
-    GraphQLList,
-    GraphQLNonNull
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
 } = require("graphql");
 ```
 
@@ -47,10 +47,11 @@ const Mutation = new GraphQLObjectType({
 ```
 
 Add the `Mutation` to the exports
+
 ```js
-module.exports = new GraphQLSchema({ 
-    query: RootQuery ,
-    mutation: Mutation
+module.exports = new GraphQLSchema({
+  query: RootQuery,
+  mutation: Mutation,
 });
 ```
 
@@ -88,3 +89,8 @@ What to check
 
 - The mutation returns the new `Customer` with a generated `id`.
 - A follow-up `customer(id: "7")` query (or whatever id was assigned) returns the same customer you just created.
+
+# Learning Challenge
+
+Now that you've seen how mutations are done, the next step will be to create a FocusSession with Mutations.
+Take a few minutes to do it on your own, and then continue to [Step-3](./step-2.md).
