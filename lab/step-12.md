@@ -1,4 +1,4 @@
-# Step 13 — Latest focus sessions Query (4 min)
+# Step 12 — Latest Focus Sessions Query (4 min)
 
 Objective
 

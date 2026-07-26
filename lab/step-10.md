@@ -1,4 +1,4 @@
-# Step 10 — Showing Customerm, FocusSession, and Theme Relationships (11 min)
+# Step 10 — Showing Customer, FocusSession, and Theme Relationships (11 min)
 
 Objective
 
