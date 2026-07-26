@@ -1,43 +1,32 @@
-# Step 12 — Posts Query (8 min)
+# Step 13 — Hobbies Query (4 min)
 
 Objective
 
-- Add a top-level `posts` query with optional filtering and return sample data.
+- Add a top-level `hobbies` query and test list returns.
 
 Steps
 
 1. In `RootQuery` add:
 
 ```js
-posts: {
-  type: new GraphQLList(PostType),
-  args: { customerId: { type: GraphQLID } },
-  resolve(parent, args) {
-    if (args.customerId) return posts.filter(p => p.customerId === args.customerId);
-    return posts;
-  }
+hobbies: {
+  type: new GraphQLList(HobbyType),
+  resolve() { return hobbies; }
 }
 ```
 
-2. Test queries in GraphiQL:
+2. Test in GraphiQL:
 
 ```graphql
 {
-  posts {
+  hobbies {
     id
     title
-    content
-  }
-}
-
-{
-  posts(customerId: "1") {
-    id
-    title
+    description
   }
 }
 ```
 
 What to check
 
-- `posts` and filtered `posts(customerId: ...)` return expected results.
+- `hobbies` returns the full list from `server/data/sample.js`.

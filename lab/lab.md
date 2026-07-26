@@ -30,15 +30,12 @@ This lab walks through building a small GraphQL API with Express in 13 focused s
 	- Objective: Link types (e.g., `Customer` ↔ `Post`, `Customer` ↔ `Hobby`) and expose nested fields.
 
 10. Showing Customers Relationships — 11 min
-	 - Objective: Implement customer resolvers that return related posts and hobbies.
+	 - Objective: Implement customer resolvers that return related focusSessions and themes.
 
-11. Customer Type Relationship to Hobby — 6 min
-	 - Objective: Demonstrate resolving a customer's hobbies and explain resolver chaining.
-
-12. Posts Query — 8 min
+11. Posts Query — 8 min
 	 - Objective: Add a top-level `posts` query, support filtering and return sample data.
 
-13. Hobbies Query — 4 min
+12. Hobbies Query — 4 min
 	 - Objective: Add a top-level `hobbies` query and test queries that return lists.
 
 ---

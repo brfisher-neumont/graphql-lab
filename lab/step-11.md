@@ -1,26 +1,60 @@
-# Step 11 — Customer Type Relationship to Hobby (6 min)
+# Step 11 — Themes Query (8 min)
 
 Objective
 
-- Show resolver chaining and how a customer's hobbies are resolved from sample data.
+- Enhance the top-level `themes` query with optional filtering and return sample data.
 
 Steps
 
-1. Decide how hobbies relate to customers in your sample data. Two simple patterns:
-   - Each `hobby` has a `customerId` property, or
-   - A customer stores an array of `hobbyIds`.
-
-2. Example resolver when `hobby.customerId` exists:
+1. In `RootQuery`, update the `themes` field (added back in Step 8) to accept an optional `color` argument:
 
 ```js
-hobbies: {
-  type: new GraphQLList(HobbyType),
-  resolve(parent) { return hobbies.filter(h => h.customerId === parent.id); }
+themes: {
+  type: new GraphQLList(ThemeType),
+  args: { color: { type: GraphQLString } },
+  resolve(parent, args) {
+    if(args.color) return _.filter(themes, { color: args.color });
+    else return themes;
+  }
+},
+```
+
+Unlike `FocusSession`, `Theme` has no foreign key of its own to filter on (recall from Step 9 there's no direct relationship between `Theme` and `Customer`) — so here we filter on one of `Theme`'s own fields instead.
+
+2. Test queries in GraphiQL:
+
+```graphql
+{
+  themes {
+    id
+    name
+    color
+  }
+}
+
+{
+  themes(color: "Red") {
+    id
+    name
+    color
+  }
 }
 ```
 
-3. If using `hobbyIds` on the customer, map ids to hobby items inside the resolver.
-
 What to check
 
-- Requesting `customer { hobbies { title } }` resolves correctly and demonstrates resolver chaining.
+- `themes` and filtered `themes(color: "Red")` return expected results.
+
+```json
+{
+  "data": {
+    "themes": [
+      {
+        "id": "1",
+        "name": "Theme 1",
+        "color": "Red"
+      }
+    ]
+  }
+}
+```

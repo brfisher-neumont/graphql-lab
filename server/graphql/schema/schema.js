@@ -67,8 +67,10 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     themes: {
       type: new GraphQLList(ThemeType),
+      args: { color: { type: GraphQLString } },
       resolve(parent, args) {
-        return themes;
+        if(args.color) return _.filter(themes, { color: args.color });
+        else return themes;
       }
     },
     customer: {
