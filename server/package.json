@@ -9,6 +9,9 @@
   "author": "Brent",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1095.0",
+    "@aws-sdk/lib-dynamodb": "^3.1095.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "graphql": "^16.14.2",
     "graphql-http": "^1.22.4",

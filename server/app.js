@@ -3,6 +3,7 @@ const { createHandler } = require("graphql-http/lib/use/express");
 const { ruruHTML } = require("ruru/server");
 const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
 const schema = require("./graphql/schema/schema");
+const config = require("dotenv").config;
 
 const app = express();
 

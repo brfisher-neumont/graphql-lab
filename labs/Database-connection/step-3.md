@@ -6,7 +6,7 @@ Objective
 
 Outline
 
-- Install dependencies in `server/`:
+- Install dependencies in `server/` using `npm install <name>` for each:
   - `@aws-sdk/client-dynamodb` — the low-level DynamoDB client.
   - `@aws-sdk/lib-dynamodb` — a `DynamoDBDocumentClient` wrapper that lets you work with plain JS objects instead of DynamoDB's raw attribute-value format.
   - `dotenv` — load AWS credentials from an untracked `.env` file instead of hardcoding them.
@@ -30,7 +30,20 @@ module.exports = DynamoDBDocumentClient.from(client);
 ```
 
 - In `server/app.js`, require `dotenv/config` at the top and import the document client to confirm it initializes without throwing.
-- Do a quick sanity check with a `ListTablesCommand` (or the throwaway table from Step 2) to confirm the app can actually reach DynamoDB with these credentials.
+- Do a quick sanity check with a `ListTablesCommand` (or the throwaway table from Step 2) to confirm the app can actually reach DynamoDB with these credentials. create a file `server/db/testConnection.js` and add to the following:
+
+```js
+require("dotenv/config");
+const { ListTablesCommand } = require("@aws-sdk/client-dynamodb");
+const docClient = require("./dynamo");
+
+docClient
+  .send(new ListTablesCommand({}))
+  .then((result) => console.log("Connected to DynamoDB. Tables:", result.TableNames))
+  .catch((err) => console.error("Failed to connect to DynamoDB:", err));
+```
+
+Run it once with `node` (e.g. `node server/db/testConnection.js` if you saved it as its own file) to confirm it logs a table list — even an empty array — instead of throwing.
 
 What to check
 
