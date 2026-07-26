@@ -123,12 +123,12 @@ Notes:
 - `FocusSessionType` doesn't expose a raw `customerId` field — only the resolved `customer`/`theme` fields — so you can't select `customerId` directly in the response. Confirm the reference saved correctly by checking the item in the DynamoDB console instead.
 - Don't query the nested `customer`/`theme` fields yet, either — those resolvers still read from the old in-memory `data.js` arrays and won't find the new DynamoDB item until Step 8 rewires them.
 
-What to check
+## What to check
 
 - `createCustomer` returns the item you built, including its generated `id`.
 - `createFocusSession` returns an item referencing the `customerId` you passed in.
 - The new items are visible under "Explore table items" in the DynamoDB console for `Customers` and `FocusSessions`.
 
-Challenge
+## Challenge
 
 Try creating a second `Customer` and a `FocusSession` that references it, to confirm multiple items save correctly, then proceed to [Step 7](./step-7.md).

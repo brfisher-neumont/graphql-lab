@@ -1,6 +1,6 @@
-# GraphQL Lab — Database Connection — 10 Steps
+# GraphQL Lab — Database Connection — 9 Steps
 
-This lab moves off the in-memory sample data used in the earlier labs and connects the GraphQL API to a real DynamoDB database via the AWS SDK. It re-implements the `Customer`, `FocusSession`, and `Theme` entities from the Getting Started and Mutations labs as DynamoDB tables, and wires up validation with `GraphQLNonNull`. Each step includes an estimated time and a short objective. Total time: ~72 min
+This lab moves off the in-memory sample data used in the earlier labs and connects the GraphQL API to a real DynamoDB database via the AWS SDK. It re-implements the `Customer`, `FocusSession`, and `Theme` entities from the Getting Started and Mutations labs as DynamoDB tables, and wires up validation with `GraphQLNonNull`. Each step includes an estimated time and a short objective. Total time: ~71 min
 
 1. [DynamoDB vs Relational Databases](step-1.md) — 9 min
 	- Objective: Understand how DynamoDB's key-value/document model differs from a relational database, and why that shapes how we design the `Customers`, `Themes`, and `FocusSessions` tables.
@@ -26,8 +26,5 @@ This lab moves off the in-memory sample data used in the earlier labs and connec
 8. [Getting Customers, Themes, and FocusSessions](step-8.md) — 4 min
 	- Objective: Add top-level queries to fetch `Customer`, `Theme`, and `FocusSession` items from DynamoDB.
 
-9. [Cors and Adding NonNulls to Required Fields](step-9.md) — 7 min
+9. [CORS and Adding NonNulls to Required Fields](step-9.md) — 7 min
 	- Objective: Enable CORS on the Express app and mark required mutation arguments with `GraphQLNonNull`.
-
-10. [Finish Adding NonNulls to Other fields](step-10.md) — 1 min
-	- Objective: Finish applying `GraphQLNonNull` to the remaining required fields across the schema.

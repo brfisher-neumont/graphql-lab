@@ -1,10 +1,10 @@
 # Step 3 — Setting up Project to Connect to DynamoDB (18 min)
 
-Objective
+## Objective
 
 - Install the AWS SDK, configure credentials, and connect the Express app to DynamoDB.
 
-Outline
+## Outline
 
 - Install dependencies in `server/` using `npm install <name>` for each:
   - `@aws-sdk/client-dynamodb` — the low-level DynamoDB client.
@@ -67,12 +67,12 @@ docClient
   .catch((err) => console.error("Failed to connect to DynamoDB:", err));
 ```
 
-What to check
+## What to check
 
 - Starting the server (`nodemon app`) logs `Connected to DynamoDB. Tables: [...]` (even an empty array) before it logs the "listening on port" message.
 - No AWS credential/region errors on startup.
 - `.env` is present locally but not tracked by git (`git status` shouldn't show it).
 
-Challenge
+## Challenge
 
 Try temporarily using an invalid access key to confirm the server logs a clear connection error and never calls `app.listen` — it should fail closed, not start up half-connected. Then restore the correct credentials and proceed to [Step 4](./step-4.md).

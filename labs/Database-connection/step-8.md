@@ -111,4 +111,4 @@ Note: `FocusSessionType.customer`, and `CustomerType.focusSessions`/`lastTwoFocu
 
 ## Challenge
 
-There are still a few using the old in-memory arrays. Fix those before proceeding to step-9.
+There are still a few using the old in-memory arrays. Fix those before proceeding to [Step 9](./step-9.md).

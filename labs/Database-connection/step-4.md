@@ -1,10 +1,10 @@
 # Step 4 — Create a Customers Table (7 min)
 
-Objective
+## Objective
 
 - Define the `Customers` table with a partition key.
 
-Steps
+## Steps
 
 1. Install `uuid` in `server/` — DynamoDB won't generate an `id` for you the way a relational auto-increment or Mongo's `_id` would, so you'll generate one in code with `uuidv4()` starting in Step 6:
 
@@ -61,9 +61,12 @@ Customers table created
 Waiting for the debugger to disconnect...
 ```
 
-What to check
+## What to check
 
 - The `Customers` table appears in the DynamoDB console with `id` as its partition key.
 - Table status shows `ACTIVE` before moving on.
 
+## Challenge
+
+Try adding a second attribute to the `CreateTableCommand`'s `AttributeDefinitions` (without adding it to `KeySchema`) and confirm the table still creates successfully — only key attributes need to be declared up front. Then proceed to [Step 5](./step-5.md).
 

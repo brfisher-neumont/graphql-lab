@@ -62,7 +62,7 @@ client
 
 4. Run the script again (`node .\db\createTables.js`) and confirm both new tables in the DynamoDB console.
 
-What to check
+## What to check
 
 - The `Themes` table shows `ACTIVE` status with `id` as its primary partition key.
 - The `FocusSessions` table shows `ACTIVE` status with `id` as its primary partition key, and its `customerId-index` GSI shows `ACTIVE` with `customerId` as its partition key.
