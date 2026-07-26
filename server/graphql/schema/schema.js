@@ -8,13 +8,10 @@ const {
     GraphQLNonNull
 } = require("graphql");
 
-const customers = require("../../data/data").customers;
-const focusSessions = require("../../data/data").focusSessions;
-const themes = require("../../data/data").themes;
 
 const _ = require("lodash");
 
-const { PutCommand } = require("@aws-sdk/lib-dynamodb");
+const { PutCommand, ScanCommand, QueryCommand, GetCommand } = require("@aws-sdk/lib-dynamodb");
 const { v4: uuidv4 } = require("uuid");
 const docClient = require("../../db/dynamo");
 const { CUSTOMERS_TABLE, FOCUS_SESSIONS_TABLE, THEMES_TABLE } = require("../../db/tableNames");
@@ -35,10 +32,14 @@ const CustomerType = new GraphQLObjectType({
         pageSize: { type: GraphQLInt },
         pageNumber: { type: GraphQLInt }
       },
-      resolve(parent, args) {
-        let filteredSessions = _.filter(focusSessions, {
-            customerId: parent.id
-        });
+      async resolve(parent, args) {
+        const result = await docClient.send(new QueryCommand({
+          TableName: FOCUS_SESSIONS_TABLE,
+          IndexName: "customerId-index",
+          KeyConditionExpression: "customerId = :customerId",
+          ExpressionAttributeValues: { ":customerId": parent.id }
+        }));
+        let filteredSessions = result.Items;
         filteredSessions = _.orderBy(filteredSessions, ["startDateTime"], ["desc"]);
         if (args.pageSize != null && args.pageNumber != null) {
           const startIndex = args.pageNumber * args.pageSize;
@@ -51,10 +52,14 @@ const CustomerType = new GraphQLObjectType({
     },
     lastTwoFocusSessions: {
       type: new GraphQLList(FocusSessionType),
-      resolve(parent, args) {
-        const filteredSessions = _.filter(focusSessions, {
-            customerId: parent.id
-        });
+      async resolve(parent, args) {
+        const result = await docClient.send(new QueryCommand({
+            TableName: FOCUS_SESSIONS_TABLE,
+            IndexName: "customerId-index",
+            KeyConditionExpression: "customerId = :customerId",
+            ExpressionAttributeValues: { ":customerId": parent.id },
+        }));
+        const filteredSessions = result.Items;
         const sortedSessions = _.orderBy(filteredSessions, ["startDateTime"], ["desc"]);
         return _.take(sortedSessions, 2);
       }
@@ -72,14 +77,17 @@ const FocusSessionType = new GraphQLObjectType({
     startDateTime: { type: GraphQLString },
     duration: { type: GraphQLInt },
     theme: { type: ThemeType,
-        resolve(parent, args) {
-            return _.find(themes, { id: parent.themeId });
+        async resolve(parent, args) {
+            if (!parent.themeId) return null;
+            const result = await docClient.send(new GetCommand({ TableName: THEMES_TABLE, Key: { id: parent.themeId } }));
+            return result.Item;
         }
     },
-    
+
     customer: { type: CustomerType,
-        resolve(parent, args) {
-            return _.find(customers, { id: parent.customerId });
+        async resolve(parent, args) {
+            const result = await docClient.send(new GetCommand({ TableName: CUSTOMERS_TABLE, Key: { id: parent.customerId } }));
+            return result.Item;
         }
     }
   }),
@@ -100,46 +108,60 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     customers: {
       type: new GraphQLList(CustomerType),
-      resolve(parent, args) {
-        return customers;
+      async resolve(parent, args) {
+        const result = await docClient.send(new ScanCommand({ TableName: CUSTOMERS_TABLE }));
+        return result.Items;
       }
     },
     focusSessions: {
         type: new GraphQLList(FocusSessionType),
         args: { customerId: { type: GraphQLID } },
-        resolve(parent, args) {
-            if (args.customerId) return _.filter(focusSessions, { customerId: args.customerId });
-            return focusSessions;
+        async resolve(parent, args) {
+            if (args.customerId) {
+              const result = await docClient.send(new QueryCommand({
+                TableName: FOCUS_SESSIONS_TABLE,
+                IndexName: "customerId-index",
+                KeyConditionExpression: "customerId = :customerId",
+                ExpressionAttributeValues: { ":customerId": args.customerId },
+              }));
+              return result.Items;
+            }
+            const result = await docClient.send(new ScanCommand({ TableName: FOCUS_SESSIONS_TABLE }));
+            return result.Items;
         }
     },
     themes: {
       type: new GraphQLList(ThemeType),
       args: { color: { type: GraphQLString } },
-      resolve(parent, args) {
-        if(args.color) return _.filter(themes, { color: args.color });
-        else return themes;
+      async resolve(parent, args) {
+        const result = await docClient.send(new ScanCommand({ TableName: THEMES_TABLE }));
+        if (args.color) return _.filter(result.Items, { color: args.color });
+        return result.Items;
       }
     },
     customer: {
       type: CustomerType,
       args: { id: { type: GraphQLString } },
 
-      resolve(parent, args) {
-        return _.find(customers, { id: args.id });
+      async resolve(parent, args) {
+        const result = await docClient.send(new GetCommand({ TableName: CUSTOMERS_TABLE, Key: { id: args.id } }));
+        return result.Item;
       },
     },
     focusSession: {
       type: FocusSessionType,
       args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        return _.find(focusSessions, { id: args.id });
+      async resolve(parent, args) {
+        const result = await docClient.send(new GetCommand({ TableName: FOCUS_SESSIONS_TABLE, Key: { id: args.id } }));
+        return result.Item;
       },
     },
     theme: {
       type: ThemeType,
       args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        return _.find(themes, { id: args.id });
+      async resolve(parent, args) {
+        const result = await docClient.send(new GetCommand({ TableName: THEMES_TABLE, Key: { id: args.id } }));
+        return result.Item;
       },
     }
   },

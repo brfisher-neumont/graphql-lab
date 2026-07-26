@@ -6,8 +6,10 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
 const schema = require("./graphql/schema/schema");
 const docClient = require("./db/dynamo");
 const { ListTablesCommand } = require("@aws-sdk/client-dynamodb");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.all("/graphql", createHandler({ schema }));
 
