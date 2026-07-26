@@ -14,6 +14,12 @@ const themes = require("../../data/data").themes;
 
 const _ = require("lodash");
 
+const { PutCommand } = require("@aws-sdk/lib-dynamodb");
+const { v4: uuidv4 } = require("uuid");
+const docClient = require("../../db/dynamo");
+const { CUSTOMERS_TABLE, FOCUS_SESSIONS_TABLE } = require("../../db/tableNames");
+
+
 
 
 const CustomerType = new GraphQLObjectType({
@@ -148,13 +154,13 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         photo: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const customer = {
-          id: String(customers.length + 1),
-          name: args.name,
-          photo: args.photo,
+        id: uuidv4(),
+        name: args.name,
+        photo: args.photo,
         };
-        customers.push(customer);
+        await docClient.send(new PutCommand({ TableName: CUSTOMERS_TABLE, Item: customer }));
         return customer;
       },
     },
@@ -169,9 +175,9 @@ const Mutation = new GraphQLObjectType({
         themeId: { type: GraphQLID },
         customerId: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const focusSession = {
-          id: String(focusSessions.length + 1),
+          id: uuidv4(),
           name: args.name,
           description: args.description,
           notes: args.notes,
@@ -180,7 +186,8 @@ const Mutation = new GraphQLObjectType({
           themeId: args.themeId,
           customerId: args.customerId,
         };
-        focusSessions.push(focusSession);
+        await docClient.send(new PutCommand({ TableName: FOCUS_SESSIONS_TABLE, Item: focusSession }));
+        
         return focusSession;
       },
     },
