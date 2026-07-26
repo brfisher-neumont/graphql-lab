@@ -35,3 +35,6 @@ app.all("/graphql", createHandler({ schema }));
 - Omitting a required argument now returns a GraphQL validation error instead of reaching the resolver.
 - Existing valid mutations from earlier steps still succeed unchanged.
 
+## Challenge
+Just to be sure, remove the test data from the schema.js file
+run through several creates and queries to see how your model works out!
