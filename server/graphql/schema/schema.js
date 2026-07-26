@@ -5,6 +5,7 @@ const {
   GraphQLID,
     GraphQLInt,
     GraphQLList,
+    GraphQLNonNull
 } = require("graphql");
 
 const customers = require("../../data/data").customers;
@@ -12,6 +13,8 @@ const focusSessions = require("../../data/data").focusSessions;
 const themes = require("../../data/data").themes;
 
 const _ = require("lodash");
+
+
 
 const CustomerType = new GraphQLObjectType({
   name: "Customer",
@@ -122,4 +125,29 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-module.exports = new GraphQLSchema({ query: RootQuery });
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createCustomer: {
+      type: CustomerType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        photo: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        const customer = {
+          id: String(customers.length + 1),
+          name: args.name,
+          photo: args.photo,
+        };
+        customers.push(customer);
+        return customer;
+      },
+    },
+  },
+});
+
+module.exports = new GraphQLSchema({ 
+    query: RootQuery ,
+    mutation: Mutation
+});
