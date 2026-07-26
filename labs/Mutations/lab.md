@@ -17,5 +17,5 @@ This lab builds on the Getting Started lab by introducing mutations — write op
 5. [Adding a FocusSession Query](step-5.md) — 6 min
 	- Objective: Add a top-level query to fetch the `FocusSession`s created via mutation.
 
-6. [FocusSession and Theme Queries](step-6.md) — 5 min
-	- Objective: Add top-level queries to fetch `FocusSession`s and `Theme`s together and verify the mutations from earlier steps.
+6. [Customers Query](step-6.md) — 5 min
+	- Objective: Create a `customers` query so we can verify all the customers in the system.

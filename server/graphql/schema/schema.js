@@ -92,6 +92,12 @@ const ThemeType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    customers: {
+      type: new GraphQLList(CustomerType),
+      resolve(parent, args) {
+        return customers;
+      }
+    },
     focusSessions: {
         type: new GraphQLList(FocusSessionType),
         args: { customerId: { type: GraphQLID } },

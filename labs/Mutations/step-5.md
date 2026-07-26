@@ -52,3 +52,6 @@ What to check
 
 - `focusSessions` returns every session, including any you created via `createFocusSession` in Steps 3 and 4.
 - `focusSessions(customerId: "1")` returns only Alice's sessions.
+
+## Challenge
+the next step will ask you to create queries for the other two entities that we have.
