@@ -93,4 +93,4 @@ What to check
 # Learning Challenge
 
 Now that you've seen how mutations are done, the next step will be to create a FocusSession with Mutations.
-Take a few minutes to do it on your own, and then continue to [Step-3](./step-2.md).
+Take a few minutes to do it on your own, and then continue to [Step-3](./step-3.md).

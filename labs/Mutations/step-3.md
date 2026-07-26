@@ -4,6 +4,8 @@ Objective
 
 - Add a `createFocusSession` field to `Mutation` that creates a new `FocusSession`.
 
+How did you do on creating the FocusSession. You should be well on your way to creating mutations by now. Follow along with the instructions to see how you did.
+
 Steps
 
 1. In `server/graphql/schema/schema.js`, add `createFocusSession` alongside `createCustomer`:
@@ -79,3 +81,8 @@ What to check
 
 - The mutation returns the new `FocusSession`, including the nested `customer` it belongs to.
 - The new session shows up in `customer(id: "1").focusSessions`.
+
+# Learning Challenge
+
+The next step is creating a Theme. Create the mutations for Theme **with relationships**.
+Take a few minutes to do it on your own, and then continue to [Step-4](./step-4.md).

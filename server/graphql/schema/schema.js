@@ -170,6 +170,22 @@ const Mutation = new GraphQLObjectType({
         return focusSession;
       },
     },
+    createTheme: {
+      type: ThemeType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        color: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        const theme = {
+          id: String(themes.length + 1),
+          name: args.name,
+          color: args.color,
+        };
+        themes.push(theme);
+        return theme;
+      },
+    },
   },
 });
 
