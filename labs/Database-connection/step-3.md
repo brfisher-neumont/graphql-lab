@@ -4,15 +4,15 @@
 
 - Install the AWS SDK, configure credentials, and connect the Express app to DynamoDB.
 
-## Outline
+## Steps
 
-- Install dependencies in `server/` using `npm install <name>` for each:
-  - `@aws-sdk/client-dynamodb` — the low-level DynamoDB client.
-  - `@aws-sdk/lib-dynamodb` — a `DynamoDBDocumentClient` wrapper that lets you work with plain JS objects instead of DynamoDB's raw attribute-value format.
-  - `dotenv` — load AWS credentials from an untracked `.env` file instead of hardcoding them.
-- In `.env`, store `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION` from Step 2, plus a `LISTEN_PORT` for the Express server itself (e.g. `4000`).
-- Add `.env` to `.gitignore` so credentials never get committed.
-- In `server/db/dynamo.js` (new file), create and export a client:
+1. Install dependencies in `server/` using `npm install <name>` for each:
+   - `@aws-sdk/client-dynamodb` — the low-level DynamoDB client.
+   - `@aws-sdk/lib-dynamodb` — a `DynamoDBDocumentClient` wrapper that lets you work with plain JS objects instead of DynamoDB's raw attribute-value format.
+   - `dotenv` — load AWS credentials from an untracked `.env` file instead of hardcoding them.
+2. In `.env`, store `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION` from Step 2, plus a `LISTEN_PORT` for the Express server itself (e.g. `4000`).
+3. Add `.env` to `.gitignore` so credentials never get committed.
+4. In `server/db/dynamo.js` (new file), create and export a client:
 
 ```js
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
@@ -29,7 +29,7 @@ const client = new DynamoDBClient({
 module.exports = DynamoDBDocumentClient.from(client);
 ```
 
-- In `server/app.js`, require `dotenv/config` at the top (so `AWS_REGION`/`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`LISTEN_PORT` are loaded before anything else runs) and import the document client from Step 3 so it initializes as soon as the server starts:
+5. In `server/app.js`, require `dotenv/config` at the top (so `AWS_REGION`/`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`LISTEN_PORT` are loaded before anything else runs) and import the document client from Step 3 so it initializes as soon as the server starts:
 
 ```js
 require("dotenv/config");
@@ -52,8 +52,8 @@ app.get("/", (_req, res) => {
 const PORT = process.env.LISTEN_PORT;
 ```
 
-- Read the port to listen on from `.env` via `process.env.LISTEN_PORT` — don't hardcode `4000` directly in `app.listen(...)`.
-- Do a sanity check with a `ListTablesCommand` before the server starts accepting requests, so a bad region/credential fails loudly at boot instead of on the first GraphQL query. Gate `app.listen` on the check resolving successfully:
+6. Read the port to listen on from `.env` via `process.env.LISTEN_PORT` — don't hardcode `4000` directly in `app.listen(...)`.
+7. Do a sanity check with a `ListTablesCommand` before the server starts accepting requests, so a bad region/credential fails loudly at boot instead of on the first GraphQL query. Gate `app.listen` on the check resolving successfully:
 
 ```js
 docClient
