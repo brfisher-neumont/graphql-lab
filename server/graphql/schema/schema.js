@@ -144,6 +144,32 @@ const Mutation = new GraphQLObjectType({
         return customer;
       },
     },
+    createFocusSession: {
+      type: FocusSessionType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLString },
+        notes: { type: GraphQLString },
+        startDateTime: { type: new GraphQLNonNull(GraphQLString) },
+        duration: { type: GraphQLInt },
+        themeId: { type: GraphQLID },
+        customerId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        const focusSession = {
+          id: String(focusSessions.length + 1),
+          name: args.name,
+          description: args.description,
+          notes: args.notes,
+          startDateTime: args.startDateTime,
+          duration: args.duration,
+          themeId: args.themeId,
+          customerId: args.customerId,
+        };
+        focusSessions.push(focusSession);
+        return focusSession;
+      },
+    },
   },
 });
 
