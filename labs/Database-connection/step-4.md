@@ -65,3 +65,5 @@ What to check
 
 - The `Customers` table appears in the DynamoDB console with `id` as its partition key.
 - Table status shows `ACTIVE` before moving on.
+
+
