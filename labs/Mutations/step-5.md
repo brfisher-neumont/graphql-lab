@@ -1,12 +1,12 @@
 # Step 5 — Adding a FocusSession Query (6 min)
 
-Objective
+## Objective
 
 - Add a top-level `focusSessions` query so you can list every `FocusSession`, including the ones you've been creating with mutations.
 
 `RootQuery` currently only has a singular `focusSession(id: ...)` field — there's no way to see everything at once, or to double-check that mutations from the last two steps actually landed in the data.
 
-Steps
+## Steps
 
 1. In `server/graphql/schema/schema.js`, add a `focusSessions` field to `RootQuery`, alongside `focusSession`:
 
