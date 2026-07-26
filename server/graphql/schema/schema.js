@@ -50,7 +50,6 @@ const CustomerType = new GraphQLObjectType({
         return _.take(sortedSessions, 2);
       }
     }
-1
   }),
 });
 
