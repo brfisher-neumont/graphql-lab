@@ -1,9 +1,11 @@
+require("dotenv/config");
 const express = require("express");
 const { createHandler } = require("graphql-http/lib/use/express");
 const { ruruHTML } = require("ruru/server");
 const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
 const schema = require("./graphql/schema/schema");
-const config = require("dotenv").config;
+const docClient = require("./db/dynamo");
+const { ListTablesCommand } = require("@aws-sdk/client-dynamodb");
 
 const app = express();
 
@@ -16,7 +18,13 @@ app.get("/", (_req, res) => {
   res.end(ruruHTML({ endpoint: "/graphql" }));
 });
 
+const PORT = process.env.LISTEN_PORT;
 
-app.listen(4000, () => {
-  console.log("Server is listening on port 4000");
+// Add the code to test the DynamoDB connection before starting the server
+docClient
+  .send(new ListTablesCommand({})).then((result) => {
+    console.log("Connected to DynamoDB. Tables:", result.TableNames);
+    app.listen(PORT, () => {
+        console.log("Server is listening on port " + PORT);
+    });
 });
