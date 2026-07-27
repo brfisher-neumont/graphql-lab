@@ -19,9 +19,9 @@ npm install @aws-amplify/ui-react
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import awsExports from "../aws-exports";
+import outputs from "../amplify_outputs.json";
 
-Amplify.configure(awsExports);
+Amplify.configure(outputs);
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -43,29 +43,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-3. In `app/page.tsx`, import the generated `listThemes` query and its typed result from Step 6, along with the Amplify API client:
+3. In `app/page.tsx`, generate a typed data client directly from the `Schema` type exported by Step 6's `amplify/data/resource.ts` — Gen 2 infers full types from your backend definition, so there's no separate generated `queries.ts`/`API.ts` to import:
 
 ```tsx
 "use client";
 import { useEffect, useState } from "react";
-import { generateClient } from "aws-amplify/api";
-import { listThemes } from "../graphql/queries";
-import type { ListThemesQuery, Theme } from "../API";
+import { generateClient } from "aws-amplify/data";
+import type { Schema } from "../amplify/data/resource";
 
-const client = generateClient();
+const client = generateClient<Schema>();
 ```
 
-4. Fetch the themes on mount and store them in state — because of the `@auth(rules: [{ allow: owner, ownerField: "designerId" }])` rule from Step 6, this only ever returns the signed-in designer's own themes, with no extra filtering needed:
+4. Fetch the themes on mount and store them in state — because of the `ownerDefinedIn("designerId")` rule from Step 6, this only ever returns the signed-in designer's own themes, with no extra filtering needed:
 
 ```tsx
 export default function Home() {
-  const [themes, setThemes] = useState<Theme[]>([]);
+  const [themes, setThemes] = useState<Schema["Theme"]["type"][]>([]);
 
   useEffect(() => {
     async function fetchThemes() {
-      const result = await client.graphql<ListThemesQuery>({ query: listThemes });
-      const items = result.data?.listThemes?.items ?? [];
-      setThemes(items.filter((theme): theme is Theme => theme !== null));
+      const { data } = await client.models.Theme.list();
+      setThemes(data);
     }
     fetchThemes();
   }, []);
@@ -90,15 +88,15 @@ export default function Home() {
 ```
 
 5. Reload `http://localhost:3000` and sign up (or sign in as the test user from Step 6's Challenge) through the Authenticator form.
-6. Once signed in, run a few `createTheme` mutations (in the AppSync console's Queries tab, while signed in as that same Cognito user) to add sample `Theme`s, then confirm they render in the list.
+6. Once signed in, create a few sample themes directly from the browser console (`client.models.Theme.create({ name: "Sunset", color: "#f97316" })`) — Gen 2's typed client works client-side, so you no longer need the AppSync console's Queries tab for this — then confirm they render in the list.
 7. Sign out and sign up as a second test user, and confirm that user sees an empty theme list — proving `designerId` really is scoped per logged-in designer rather than shared.
 
 ## What to check
 
 - The app shows a Cognito sign-up/sign-in form before any page content loads.
-- `listThemes` returns only the themes created by the currently signed-in designer.
+- `client.models.Theme.list()` returns only the themes created by the currently signed-in designer.
 - Signing in as a different designer shows a different (initially empty) list.
-- No TypeScript errors on `theme.color`/`theme.name` — the generated `Theme` type from `API.ts` should match the fields used here.
+- No TypeScript errors on `theme.color`/`theme.name` — `Schema["Theme"]["type"]` is inferred directly from the backend schema in Step 6, with no manual codegen step.
 
 ## Challenge
 

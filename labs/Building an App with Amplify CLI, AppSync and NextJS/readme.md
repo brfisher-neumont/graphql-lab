@@ -16,13 +16,13 @@ Total time: ~57 min
 	- Objective: Confirm Tailwind CSS — already scaffolded by `create-next-app`'s recommended defaults in Step 2 — is working, and make a small customization.
 
 5. [Setting up Amplify in Project](step-5.md) — 5 min
-	- Objective: Install the Amplify libraries and CLI into the Next.js project.
+	- Objective: Install the Amplify Gen 2 backend tooling and client library into the Next.js project.
 
-6. [Setting up our API with Amplify CLI - Amplify init](step-6.md) — 14 min
-	- Objective: Run `amplify init` to connect the project to an AWS Amplify backend, then add Cognito authentication and a Cognito-secured GraphQL API.
+6. [Setting up our API with Amplify Gen 2](step-6.md) — 14 min
+	- Objective: Define an Amplify Gen 2 backend — Cognito authentication and a Cognito-secured GraphQL API — as code, and deploy it with a personal cloud sandbox.
 
-7. [Setting up the AWS-Exports Config File](step-7.md) — 4 min
-	- Objective: Wire up the generated `aws-exports.js` config so the app can talk to the Amplify backend.
+7. [Setting up the Amplify Outputs Config File](step-7.md) — 4 min
+	- Objective: Wire up the generated `amplify_outputs.json` config so the app can talk to the Amplify backend.
 
 8. [Interacting with the GraphQL AppSync API - Retrieve Themes and Showing them](step-8.md) — 20 min
 	- Objective: Require sign-in with Cognito, then query the AppSync API from the Next.js app and render the signed-in designer's themes.

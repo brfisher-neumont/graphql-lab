@@ -2,41 +2,41 @@
 
 ## Objective
 
-- Install the Amplify libraries and CLI into the Next.js project.
+- Install the Amplify Gen 2 backend tooling and client library into the Next.js project.
 
 ## Steps
 
-1. Install the Amplify CLI globally, if you haven't already:
+1. In `amplify-app/`, install the Gen 2 backend packages as dev dependencies, plus the frontend client library:
 
 ```bash
-npm install -g @aws-amplify/cli
-```
-
-2. Configure the CLI with an IAM user Amplify can use to provision AWS resources on your behalf:
-
-```bash
-amplify configure
-```
-
-Follow the prompts to sign in to the AWS console, create (or select) an IAM user with the necessary permissions, and paste in its access key ID and secret access key.
-
-3. In `amplify-app/`, install the Amplify client libraries the frontend will use to talk to the backend:
-
-```bash
+npm install --save-dev @aws-amplify/backend @aws-amplify/backend-cli typescript
 npm install aws-amplify
 ```
 
-4. Confirm the CLI is installed and configured:
+**Note:** This can take a little while. Don't give up hope. Let it run!
+
+When you are fin
+
+2. Gen 2 has no `amplify configure` step — its CLI (`ampx`) reuses whatever AWS credentials your AWS CLI/SDK already resolve to. Confirm you have a working profile:
 
 ```bash
-amplify --version
+aws sts get-caller-identity
+```
+
+If that fails, run `aws configure` first and create (or select) an IAM user with the necessary permissions for this project, rather than using your root account.
+
+3. Confirm the Gen 2 CLI is available:
+
+```bash
+npx ampx --version
 ```
 
 ## What to check
 
-- `amplify --version` prints a version number with no configuration errors.
-- `aws-amplify` appears in `amplify-app/package.json`'s dependencies.
+- `npx ampx --version` prints a version number with no errors.
+- `aws sts get-caller-identity` resolves to an account and IAM user, not an error.
+- `@aws-amplify/backend`, `@aws-amplify/backend-cli`, and `aws-amplify` appear in `amplify-app/package.json`.
 
 ## Challenge
 
-Run `amplify configure` again and inspect the IAM user it created in the AWS console — confirm it's a dedicated user for this project rather than your root account. Then proceed to [Step 6](./step-6.md).
+Run `aws sts get-caller-identity` again and confirm the IAM user it returns is a dedicated user for this project rather than your root account. Then proceed to [Step 6](./step-6.md).
